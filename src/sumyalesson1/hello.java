@@ -7,10 +7,12 @@ import java.util.Random;
 import java.util.Set;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -151,7 +153,7 @@ public class hello {
 		driver.switchTo().alert().dismiss();
 
 	}	
-	@Test(priority = 9)
+	@Test(priority = 9, enabled = false)
 	public void TableTest() {
 
 		// to prirnt all the rows
@@ -172,9 +174,129 @@ public class hello {
 //			System.out.println(AllRows.get(i).getText());
 //		}
 
-		for (int i = 0; i < AllData.size(); i = i++) {
+		for (int i = 2; i < AllData.size(); i = i+3) {
 
 			System.out.println(AllData.get(i).getText());
 		}
 
-	}}
+	}
+	@Test(priority = 10, enabled = false)
+	public void HideAndShow() throws InterruptedException {
+
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		js.executeScript("window.scrollTo(0,1500)");
+		Thread.sleep(2000);
+
+		WebElement HideButton = driver.findElement(By.id("hide-textbox"));
+		HideButton.click();
+		Thread.sleep(2000);
+		WebElement ShowButton = driver.findElement(By.id("show-textbox"));
+
+		ShowButton.click();
+	}
+	
+	@Test(priority = 11, enabled = false)
+	public void EnableDisable() throws InterruptedException {
+
+		WebElement DisableButton = driver.findElement(By.id("disabled-button"));
+		DisableButton.click();
+		Thread.sleep(2000);
+		WebElement InputField = driver.findElement(By.id("enabled-example-input"));
+		WebElement EnabledButton = driver.findElement(By.id("enabled-button"));
+		EnabledButton.click();
+		InputField.sendKeys("najat");
+	}
+	@Test(priority = 12,enabled = false)
+	public void MouseHover() throws InterruptedException {
+
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		js.executeScript("window.scrollTo(0,1800)");
+		Thread.sleep(2000);
+
+		WebElement TheElementINeedToMoveTo = driver.findElement(By.id("mousehover"));
+
+		Actions action = new Actions(driver);
+
+		action.moveToElement(TheElementINeedToMoveTo).click().perform();
+		Thread.sleep(2000);
+
+		//WebElement TopPartial = driver.findElement(By.linkText("To"));
+
+		//WebElement Top = driver.findElement(By.linkText("Top"));
+		WebElement Reload = driver.findElement(By.linkText("Reload"));
+
+
+		Reload.click();
+		
+		driver.navigate().refresh(); // بعمل ريفريش غير يلي بعملها البيج 
+	}
+
+	@Test(priority = 13,enabled = false)
+	public void calender() throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		js.executeScript("window.scrollTo(0,1900)");
+		Thread.sleep(2000);
+		
+		WebElement CalenderTab = driver.findElement(By.linkText("Booking Calendar")); 
+		CalenderTab.click();
+		
+		Thread.sleep(2000);
+		
+		Set<String> handles = driver.getWindowHandles();
+
+		List<String> TabList = new ArrayList<>(handles);
+
+		driver.switchTo().window(TabList.get(1));
+		
+		WebElement TheTable = driver.findElement(By.cssSelector(".datepick.wpbc_calendar"));
+		
+		List<WebElement> tds= TheTable.findElements(By.tagName("td")); 
+		
+		for(int i = 0 ; i < tds.size();i=i+2) {
+			System.out.println(tds.get(i).getText());
+			}}
+			
+		@Test(priority = 14,enabled = false)
+		public void Ifram() throws InterruptedException {
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+
+			js.executeScript("window.scrollTo(0,2200)");
+			Thread.sleep(2000);
+			driver.switchTo().frame("iframe-name");		
+
+			Thread.sleep(2000);
+			driver.findElement(By.cssSelector(".ct-mobile-meta-item.btn-nav-mobile.open-menu")).click();
+			Thread.sleep(2000);
+			Set<String> handles = driver.getWindowHandles();
+
+			List<String> TabList = new ArrayList<>(handles);
+
+			driver.switchTo().window(TabList.get(0));
+			Thread.sleep(2000);
+
+			WebElement CalenderTab = driver.findElement(By.linkText("Booking Calendar")); 
+			CalenderTab.click();
+			
+			Set<String> handles2 = driver.getWindowHandles();
+
+			List<String> TabList2 = new ArrayList<>(handles2);
+
+			driver.switchTo().window(TabList2.get(1));
+			
+			System.out.println(driver.getTitle());
+		}
+		
+		@Test(priority = 15)
+		public void DownloadApp() {
+			WebElement DownloadButton = driver.findElement(By.linkText("Download Apk files"));
+					DownloadButton.click();
+		}
+	}
+	
+	
+	
+
+
