@@ -20,7 +20,7 @@ public class hello {
 	@BeforeTest
 	public void mySetup() {
 		driver.get("https://codenboxautomationlab.com/practice/");
-		driver.manage().window().maximize();
+		driver.manage().window().maximize(); 
 		
 	}
 	@Test(priority = 1, enabled =false )
