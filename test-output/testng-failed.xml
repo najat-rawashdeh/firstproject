@@ -6,6 +6,8 @@
       <class name="sumyalesson1.hello">
         <methods>
           <include name="CheckBoxTest"/>
+          <include name="TableTest"/>
+          <include name="SelectTag"/>
           <include name="mySetup"/>
         </methods>
       </class> <!-- sumyalesson1.hello -->
